@@ -248,8 +248,8 @@ nav {
         filter: blur(10em);
         -webkit-filter: blur(10em);
         @include notMobile {
-          filter: blur(50em);
-          -webkit-filter: blur(50em);
+          filter: blur(20em);
+          -webkit-filter: blur(20em);
         }
         opacity: 0;
       }

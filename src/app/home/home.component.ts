@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, Injectable, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, Injectable, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import * as confetti from 'canvas-confetti';
 
 @Injectable()
 class confettiProperties {
   globalOptions?: confetti.GlobalOptions
   options?: confetti.Options
+  myConfetti?: confetti.CreateTypes
   constructor(
     public canvas?: HTMLCanvasElement,
     globalOptions?: Object,
@@ -32,14 +33,11 @@ export class HomeComponent implements OnInit {
   playing = false
   showDiscoBall = false
   showFlashes = false
-  surpriseEnabled = false
-  startedOnce = false
   skipConfirm = true
   bgAudio = {
     enabled: true,
     confirmed: false
   }
-  sessionStarted = false
   flashes = [{}, {}, {}, {}, {}, {}, {}, {}]
   confetti: confettiProperties = new confettiProperties
 
@@ -51,15 +49,12 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:focus', ['$event'])
   onFocus(event: any): void {
-    // if(this.startedOnce){
-      this.startConfetti()
-    // }
+    this.startConfetti()
   }
 
   @HostListener('window:blur', ['$event'])
   onBlur(event: any): void {
     clearInterval(this.myConfettiInterval)
-    this.animationStarted = false
     this.backgroundAudio()
   }
 
@@ -71,19 +66,19 @@ export class HomeComponent implements OnInit {
 
         if (!this.bgAudio.confirmed) {
           const wasPlaying = this.playing
-          if(wasPlaying){
+          if (wasPlaying) {
             this.toggleMusic('pause')
           }
           this.bgAudio.enabled = confirm('Enable Background Audio?')
           this.bgAudio.confirmed = true
           if (this.bgAudio.enabled) {
-            if(wasPlaying){
+            if (wasPlaying) {
               this.toggleMusic()
             }
-          }else{
+          } else {
             this.toggleMusic('pause')
           }
-        }else{
+        } else {
           if (!this.bgAudio.enabled) {
             this.toggleMusic('pause')
           }
@@ -139,11 +134,12 @@ export class HomeComponent implements OnInit {
 
   public startConfetti(): void {
     if (this.animationStarted) {
-
       if (this.confetti.canvas) {
-        const myConfetti = confetti.create(this.confetti.canvas, this.confetti.globalOptions);
-        myConfetti(this.confetti.options)
-        this.myConfettiInterval = setInterval(() => myConfetti(this.confetti.options), 4000);
+        this.myConfettiInterval = setInterval(() => {
+          if (this.confetti.myConfetti) {
+            this.confetti.myConfetti(this.confetti.options)
+          }
+        }, 4000);
       }
     } else {
       this.animationStarted = true
@@ -152,9 +148,10 @@ export class HomeComponent implements OnInit {
         resize: true
       }
       const options: confetti.Options = {
-        particleCount: 100,
+        particleCount: 150,
         ticks: 600,
         spread: 200,
+        scalar: 0.8,
         zIndex: 0,
         origin: {
           x: 0.5,
@@ -164,16 +161,21 @@ export class HomeComponent implements OnInit {
         colors: ['#0039A6', '#FFFFFF']
       }
       this.renderer2.appendChild(this.elementRef.nativeElement, canvas);
+      const myConfetti = confetti.create(canvas, globalOptions);
+      this.confetti.myConfetti = myConfetti
       this.confetti.canvas = canvas
       this.confetti.globalOptions = globalOptions
       this.confetti.options = options
+      myConfetti(this.confetti.options)
       this.startConfetti()
     }
-    this.startedOnce = true
+
   }
 
   ngOnInit(): void {
-    // this.startConfetti()
+    setTimeout(() => {
+      this.startConfetti()
+    }, 2000);
   }
 
 }
