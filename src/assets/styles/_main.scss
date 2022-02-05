@@ -1,0 +1,84 @@
+@import 'colors';
+@import 'variables';
+@import 'animations';
+
+// PARTIALS
+    @import 'partials/vetektron';
+// END PARTIALS
+
+// VARIABLES
+    $MobileConstraints: 1rem;
+    $TabletConstraints: 1.5rem;
+    $DesktopConstraints: 2rem;
+// END VARIABLES
+
+*, *:after, *:before{
+    box-sizing: border-box;
+    // webkit-transform: translate3d(0, 0, 0);
+}
+
+.noDecor{
+    @include noDecoration();
+}
+.noSelect{
+    @include notSelectable();
+}
+.noDS{
+    @include noDecoration();
+    @include notSelectable();
+    *{
+        @include noDecoration();
+        @include notSelectable();
+    }
+}
+.wc{
+    will-change: transform;
+}
+.pointer{
+    cursor: pointer;
+    *{
+        cursor: pointer;
+    }
+}
+.trans3d0{
+    -webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+}
+.accelerated{
+    -webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+}
+.fontTransDelay{
+    @include transition(font-size, .2s, .3s);
+}
+.allTransDelay{
+    @include transition(all, .2s, .3s);
+}
+
+.noList{
+    @include noList();
+    padding: 0;
+}
+
+.tCGrey{
+    color: $color-text-grey;
+
+    &.tCnm{
+        color: initial;
+        @include notMobile{
+            color: $color-text-grey;
+        }
+    }
+}
+
+$circle: 1000rem;
+

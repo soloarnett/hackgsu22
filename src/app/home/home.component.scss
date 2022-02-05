@@ -1,0 +1,289 @@
+@import "./src/assets/styles/main";
+canvas {
+  @include notSelectable;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.disco-ball {
+  @include absoluteMiddle();
+  width: 200px;
+  height: 200px;
+  transition: all 1s ease-in;
+  transform: translate(-50%, -120%);
+  @include notMobile {
+    transform: translate(-50%, -150%);
+  }
+  &.active {
+    transition: all 2s ease-out;
+    transform: translate(-50%, 10%);
+    @include notMobile {
+      transform: translate(-50%, -25%);
+    }
+  }
+}
+
+nav {
+  display: flex;
+  background-color: #1b1c35;
+  padding: 1em;
+
+  h1 {
+    @include notSelectable;
+    margin: 0;
+    font-family: "Source Code Pro", sans-serif;
+    color: white;
+    font-size: 1em;
+    @include notMobile {
+      font-size: 2em;
+    }
+  }
+}
+
+.page {
+  @include display_flex(true);
+  height: 100%;
+  section {
+    @include display_flex(true);
+    flex: 1;
+    padding: 1em;
+    height: 100%;
+    overflow: hidden;
+
+    @include landscape{
+        flex-direction: row;
+    }
+    @include notMobile {
+      flex-direction: row;
+    }
+
+    .area {
+      @include display_flex(true);
+      flex: 3;
+
+      &.logo {
+        @include noDecoration;
+        flex: 4;
+        padding: 2em;
+        overflow: hidden;
+        z-index: 2;
+        cursor: pointer;
+        @include notMobile {
+          padding: 4em;
+          flex: 3;
+        }
+
+        img {
+          cursor: pointer;
+        }
+      }
+
+      &.details {
+        border: 1px solid rgba(38, 166, 154, 0.3);
+        border-radius: 0.5em;
+        z-index: 2;
+        overflow: hidden;
+        border-color: rgba(38, 166, 154, 1);
+        background-color: rgba(19, 24, 37, 0.9);
+        transition: border 0.2s ease-in-out;
+        flex: 5;
+
+        @include notMobile {
+          border-color: rgba(38, 166, 154, 0.3);
+          height: max-content;
+          align-self: flex-end;
+          flex: 3;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          border-color: rgba(38, 166, 154, 1);
+        }
+
+        .card {
+          @include flexBetween(true);
+          .header {
+            @include notSelectable;
+            background-color: #1b1c35;
+            padding: 1em;
+            color: white;
+            text-align: center;
+            width: 100%;
+          }
+
+          p {
+            @include notSelectable;
+            color: white;
+            padding: 1em;
+            font-size: 1em;
+            text-align: center;
+            font-family: "Source Code Pro", sans-serif;
+            margin: 0;
+          }
+
+          .cta {
+            color: white;
+            text-align: center;
+            width: 100%;
+            transition: background-color 0.2s ease-in-out;
+            background-color: #26a69a;
+            min-height: fit-content;
+            height: fit-content;
+
+            @include notMobile {
+              background-color: rgba(38, 166, 154, 0.7);
+            }
+            &:hover,
+            &:focus,
+            &:active {
+              background-color: #26a69a;
+            }
+
+            a {
+              @include display_flex;
+              @include noDecoration;
+              justify-content: center;
+              border: none;
+              text-transform: uppercase;
+              background-color: transparent;
+              width: 100%;
+              height: 3em;
+              text-align: center;
+              cursor: pointer;
+              align-items: center;
+
+              @include notMobile{
+                padding: 1.5em;
+                height: 100%;
+              }
+
+              span {
+                @include notSelectable;
+                color: white;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+
+      img {
+        @include noDS;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.6;
+        transition: opacity 0.2s ease-in-out;
+        @keyframes lightning {
+          0% {
+            opacity: 0.6;
+          }
+          5% {
+            opacity: 1;
+          }
+          10% {
+            opacity: 0.6;
+          }
+          15% {
+            opacity: 1;
+          }
+          20% {
+            opacity: 0.6;
+          }
+          100% {
+            opacity: 0.6;
+          }
+        }
+
+        animation: lightning 2s ease-in-out 2s infinite;
+      }
+
+      .card {
+        @include card2_noTrans;
+        @include display_flex(true);
+        // background-color: white;
+        // width: 100%;
+        // position: relative;
+      }
+    }
+
+    .absoluteWrapper {
+      @include display_flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flashes {
+      @include display_flex;
+      width: 100%;
+      height: 100%;
+
+      @keyframes flash {
+        0% {
+          opacity: 0;
+        }
+
+        5% {
+          opacity: 1;
+        }
+
+        10%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .flash {
+        @include display_flex;
+        flex: 1;
+        background-color: white;
+        filter: blur(10em);
+        -webkit-filter: blur(10em);
+        @include notMobile {
+          filter: blur(50em);
+          -webkit-filter: blur(50em);
+        }
+        opacity: 0;
+      }
+
+      &.active {
+        .flash {
+          &.flash1 {
+            animation: flash 4s ease-in 2s infinite;
+          }
+
+          &.flash2 {
+            animation: flash 4s ease-in 4s infinite;
+          }
+          &.flash3 {
+            animation: flash 4s ease-in 5.5s infinite;
+          }
+          &.flash4 {
+            animation: flash 4s ease-in 3s infinite;
+          }
+          &.flash5 {
+            animation: flash 4s ease-in 4.5s infinite;
+          }
+
+          &.flash6 {
+            animation: flash 4s ease-in 3.5s infinite;
+          }
+          &.flash7 {
+            animation: flash 4s ease-in 5s infinite;
+          }
+          &.flash8 {
+            animation: flash 4s ease-in 2.5s infinite;
+          }
+        }
+      }
+    }
+  }
+}

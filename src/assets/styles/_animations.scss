@@ -1,0 +1,149 @@
+@keyframes fadein{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+@keyframes fadeout{
+	from{
+		opacity: 1;
+	}
+	to{
+		opacity: 0;
+	}
+}
+
+@keyframes goneFlex{
+	from{
+		display: flex;
+	}
+	to{
+		display: none;
+	}
+}
+
+@keyframes goneBlock{
+	from{
+		display: flex;
+	}
+	to{
+		display: none;
+	}
+}
+
+@keyframes transformDown{
+	from{
+		transform: translateY(-100%);
+	}
+	to{
+		transform: translateY(0);
+	}
+}
+
+@keyframes transformUp{
+	from{
+		transform: translateY(0);
+	}
+	to{
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes goAway{
+	from{
+		margin-top: 100px;
+		opacity: 1;
+	}
+	to{
+		margin-top: 80px;
+		opacity: 0;
+	}
+}
+
+@keyframes slideUp{
+	from{
+		margin-top: 60px;
+	}
+	to{
+		margin-top: 50px;
+	}
+}
+
+@keyframes growBall{
+	0%{
+		width: 0px;
+		height: 0px;
+		opacity: 0;
+	}
+	50%{
+		opacity: 1;
+	}
+	100%{
+		width: 300vw;
+		height: 300vw;
+		opacity: 1;
+	}
+}
+
+@keyframes drop{
+	0%{
+		margin-top: -30vh;
+		opacity: 0;
+	}
+	10%{
+		opacity: 0;
+	}
+	60%{
+		opacity: 1;
+	}
+	100%{
+		margin-top: 0px;
+		opacity: 1;
+	}
+}
+@keyframes jump{
+	0%{
+		@include rotate(0);
+
+		margin-top: 0px;
+		
+	}
+	30%{
+		@include rotate(0);
+	}
+	100%{
+		margin-top: -30vh;
+		@include rotate(360);
+	}
+}
+@keyframes jumpDown{
+	from{
+		margin-top: -30vh;
+	}
+	to{
+		margin-top: 0px;
+	}
+}
+@mixin animation_riseUp($from, $to, $duration, $delay, $easing, $option){
+	@keyframes riseUp {
+		from{
+			opacity: 0;
+			top: $from;
+		}
+		to{
+			opacity: 1;
+			top: $to;
+		}
+	}
+	// Classes to Include: .wc, .trans3d0
+	// will-change: transform;
+	// webkit-transform: translate3d(0, 0, 0);
+	// transform: translate3d(0, 0, 0);
+	// -moz-transform: translate3d(0, 0, 0);
+	// -o-transform: translate3d(0, 0, 0);
+	animation: riseUp $duration $easing $delay $option;
+	
+}

@@ -1,0 +1,66 @@
+.vetektron{
+    @include display_flex();
+    background-color: $color-blue;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+
+    .content{
+        @include display_flex();
+        align-items: center;
+        justify-content: center;
+        .image{
+            height: 80px;
+            width: 80px;
+            border-radius: 10px;
+            margin-right: 20px;
+            overflow: hidden;
+
+            @include notMobile{
+                height: 120px;
+                width: 120px;
+            }
+
+            @include desktop{
+                height: 90px;
+                width: 90px;
+            }
+            img{
+                object-fit: cover;
+                width: $full;
+                padding: 5px;
+                background-color: white;
+            }
+        }
+        .text{
+            @include display_flex();
+            flex-direction: column;
+            align-items: center;
+            span{
+                line-height: 1em;
+                color: white;
+            }
+            .upper{
+                font-size: 50px;
+                font-weight: 300;
+                @include notMobile{
+                    font-size: 80px;
+                }
+                @include desktop{
+                    font-size: 60px;
+                }
+            }
+            .under{
+                font-size: 25px;
+                font-weight: 100;
+                @include notMobile{
+                    font-size: 40px;
+                }
+                @include desktop{
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}

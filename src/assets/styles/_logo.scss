@@ -1,0 +1,95 @@
+@import 'main';
+
+.icon-vetek-container{
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	@include display_flex();
+	position: absolute;
+	align-items: center;
+	justify-content:center;
+	flex-direction: column;
+
+	&.start{
+		width: $full;
+		height: $full;
+
+		.icon-vetek-logo-container{
+			@include display_flex();
+			width: 100px;
+			height: 100px;
+			overflow: hidden;
+			position: absolute;
+			// @include absoluteCenter();
+			opacity: 0;
+			// top: 50%;
+			@include rotate(0);
+			// left: 50%;
+			transform-origin: 50% 50%;
+			
+			
+			@include desktop{
+				width: 100px;
+				height: 100px;
+			}
+			animation: drop .6s ease-in 0s forwards, jump .7s ease .6s forwards, jumpDown .8s ease-in-out 1.3s forwards;
+
+			.icon-vetek-logo{
+				@include flex(1,1,0);
+				font-size: 100px;
+				line-height: 100px;
+				padding-top: 15px;
+				color: $color-blue;
+
+				@include desktop{
+					font-size: 100px;
+					line-height: 100px;
+				}	
+			}
+		}
+
+		.icon-vetek-orb{
+			border-radius: 1000px;
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			background-color: $color-blue;
+			opacity: 0;
+
+			animation: growBall .6s ease 2.3s forwards;
+		}
+		.icon-vetek-text{
+			font-size: 20px;
+			color: $color-blue;
+			
+			opacity: 0;
+
+			&:not(.welcome){
+				margin-top: 100px;
+
+				&.animation-vetek-fadein{
+					animation: fadein .4s ease 1.8s forwards, goAway .2s linear 3s forwards;
+				}
+			}
+
+			&.welcome{
+				position: absolute;
+				&.animation-vetek-welcome{
+					animation: fadein .4s ease 3s forwards, slideUp .2s linear 3s forwards;
+				}
+				
+			}
+			
+		}
+
+		@include transition(opacity, .4s, 0s);
+
+		.done{
+			opacity: 0;
+		}
+
+		.delete{
+			display: none;
+		}
+	}
+}
