@@ -8,7 +8,7 @@
             src="http://hackgsu.com/disco-ball"></iframe>
         <div class="absoluteWrapper">
             <div class="flashes" [class.active]="showFlashes">
-                <div class="flash" [class]="'flash' + (i + 1)" *ngFor="let flash of flashes; let i = index"></div>
+                <div class="flash" [style.backgroundColor] = "flash.color" [class]="'flash' + (i + 1)" *ngFor="let flash of flashes; let i = index"></div>
             </div>
         </div>
         <div class="area logo" (dblclick)="restartMusic()" (click)="toggleMusic()">

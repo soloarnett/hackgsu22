@@ -34,11 +34,12 @@ export class HomeComponent implements OnInit {
   showDiscoBall = false
   showFlashes = false
   skipConfirm = true
+  wasPlaying = false
   bgAudio = {
     enabled: true,
     confirmed: false
   }
-  flashes = [{}, {}, {}, {}, {}, {}, {}, {}]
+  flashes = [{ color: '#fff' }, { color: '#ff9e9e' }, { color: '#9eb1ff' }, { color: '#ff9e9e' }, { color: '#fff' }, { color: '#9eb1ff' }, { color: '#ff9e9e' }, { color: '#9eb1ff' }]
   confetti: confettiProperties = new confettiProperties
 
   constructor(
@@ -50,6 +51,9 @@ export class HomeComponent implements OnInit {
   @HostListener('window:focus', ['$event'])
   onFocus(event: any): void {
     this.startConfetti()
+    setTimeout(() => {
+      this.backgroundAudio('focus')
+    }, 0);
   }
 
   @HostListener('window:blur', ['$event'])
@@ -58,31 +62,32 @@ export class HomeComponent implements OnInit {
     this.backgroundAudio()
   }
 
-  backgroundAudio() {
+  backgroundAudio(mode?: string) {
     if (this.passwordCorrect) {
       if (this.skipConfirm) {
         this.skipConfirm = false
       } else {
 
-        if (!this.bgAudio.confirmed) {
-          const wasPlaying = this.playing
-          if (wasPlaying) {
-            this.toggleMusic('pause')
-          }
-          this.bgAudio.enabled = confirm('Enable Background Audio?')
-          this.bgAudio.confirmed = true
-          if (this.bgAudio.enabled) {
-            if (wasPlaying) {
-              this.toggleMusic()
+        if (mode == 'focus') {
+          if (!this.bgAudio.confirmed && this.wasPlaying) {
+            this.bgAudio.enabled = confirm('Enable Background Audio?')
+            this.bgAudio.confirmed = true
+            if (this.bgAudio.enabled) {
+              if (this.wasPlaying) {
+                this.toggleMusic()
+              }
             }
-          } else {
-            this.toggleMusic('pause')
           }
         } else {
-          if (!this.bgAudio.enabled) {
-            this.toggleMusic('pause')
+          if (!this.bgAudio.confirmed || !this.bgAudio.enabled) {
+            this.wasPlaying = this.playing ? true : false
+            if (this.wasPlaying) {
+              this.toggleMusic('pause')
+            }
           }
         }
+
+
 
       }
     }
@@ -102,6 +107,7 @@ export class HomeComponent implements OnInit {
         this.playing = true
         this.showDiscoBall = true
         this.showFlashes = true
+        this.startConfetti()
         this.music.onended = () => {
           this.playing = false
           this.showDiscoBall = false
@@ -135,6 +141,7 @@ export class HomeComponent implements OnInit {
   public startConfetti(): void {
     if (this.animationStarted) {
       if (this.confetti.canvas) {
+        clearInterval(this.myConfettiInterval)
         this.myConfettiInterval = setInterval(() => {
           if (this.confetti.myConfetti) {
             this.confetti.myConfetti(this.confetti.options)
