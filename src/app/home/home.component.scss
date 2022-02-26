@@ -54,10 +54,7 @@ nav {
     height: 100%;
     overflow: hidden;
 
-    @include landscape{
-        flex-direction: row;
-    }
-    @include notMobile {
+    @include landscape {
       flex-direction: row;
     }
 
@@ -93,10 +90,12 @@ nav {
         flex: 5;
 
         @include notMobile {
-          border-color: rgba(38, 166, 154, 0.3);
-          height: max-content;
-          align-self: flex-end;
-          flex: 3;
+          @include landscape {
+            border-color: rgba(38, 166, 154, 0.3);
+            height: max-content;
+            align-self: flex-end;
+            flex: 3;
+          }
         }
 
         &:hover,
@@ -157,7 +156,7 @@ nav {
               cursor: pointer;
               align-items: center;
 
-              @include notMobile{
+              @include notMobile {
                 padding: 1.5em;
                 height: 100%;
               }
@@ -286,4 +285,37 @@ nav {
       }
     }
   }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.links ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.links ul li {
+  display: flex;
+  text-align: center;
+  list-style: none;
+  justify-content: center;
+  margin: 0;
+  flex: 1;
+}
+.links ul li a {
+  text-decoration: none;
+  color: rgb(59, 59, 223);
+  padding: 1em;
+}
+
+.links ul li a:hover{
+  color: rgb(109, 109, 221);
 }
