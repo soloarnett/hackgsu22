@@ -64,8 +64,6 @@ nav {
 
       &.logo {
         @include noDecoration;
-        flex: 4;
-        padding: 2em;
         overflow: hidden;
         z-index: 2;
         cursor: pointer;
@@ -76,6 +74,10 @@ nav {
 
         img {
           cursor: pointer;
+          padding: 2em;
+          @include notMobile{
+            padding: 0;
+          }
         }
       }
 
