@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  {path: 'disco-ball', pathMatch: 'full', redirectTo:'assets/disco-ball'},
   {path: '**', component: HomeComponent}
 ];
 

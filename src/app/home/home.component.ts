@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
 
   getMusic() {
     this.music = new Audio();
-    this.music.src = "http://hackgsu.com/assets/music/OldSkool.mp3";
+    this.music.src = "https://hackgsu.com/assets/music/OldSkool.mp3";
     this.music.load();
   }
 
