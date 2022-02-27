@@ -45,3 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 .mp3
+*.mp3
+OldSkool.mp3
