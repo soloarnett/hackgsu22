@@ -1,4 +1,23 @@
 @import "./src/assets/styles/main";
+
+.dsktp {
+  display: none;
+  @include landscape {
+    @include notMobile {
+      display: initial;
+    }
+  }
+}
+
+.mbl {
+  @include display_flex;
+  @include landscape {
+    @include notMobile {
+      display: none;
+    }
+  }
+}
+
 canvas {
   @include notSelectable;
   height: 100%;
@@ -20,7 +39,7 @@ canvas {
   }
   &.active {
     transition: all 2s ease-out;
-    transform: translate(-50%, 10%);
+    transform: translate(-50%, -80%);
     @include notMobile {
       transform: translate(-50%, -25%);
     }
@@ -38,6 +57,7 @@ nav {
     font-family: "Source Code Pro", sans-serif;
     color: white;
     font-size: 1em;
+    z-index: 3;
     @include notMobile {
       font-size: 2em;
     }
@@ -55,44 +75,87 @@ nav {
     overflow: hidden;
 
     @include landscape {
-      flex-direction: row;
+      @include notMobile {
+        flex-direction: row;
+      }
     }
 
     .area {
       @include display_flex(true);
-      flex: 3;
+      flex: auto;
 
       &.logo {
         @include noDecoration;
         overflow: hidden;
         z-index: 2;
+        flex-direction: row;
         cursor: pointer;
-        @include notMobile {
-          padding: 4em;
-          flex: 3;
+        @include landscape {
+          @include notMobile {
+            flex-direction: column;
+            padding: 4em;
+            flex: 3;
+          }
         }
 
-        img {
+        .image {
+          @include display_flex;
           cursor: pointer;
-          padding: 2em;
-          @include notMobile{
-            padding: 0;
+          overflow: hidden;
+
+          flex: 1 0 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+            padding: 4vw;
+            @include landscape {
+              padding: 0;
+            }
+          }
+        }
+
+        .date.mbl {
+          flex: 1 1 0;
+          color: white;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          flex-wrap: wrap;
+
+          .month {
+            font-weight: 700;
+            font-size: 10vw;
+          }
+
+          .date-container {
+            @include display_flex(true);
+            align-items: center;
+
+            .days {
+              font-size: 8vw;
+              border-bottom: 2px solid white;
+              padding-bottom: 1vw;
+              font-weight: 700;
+            }
+
+            .year {
+              font-size: 9.8vw;
+              font-weight: 300;
+            }
           }
         }
       }
 
       &.details {
-        border: 1px solid rgba(38, 166, 154, 0.3);
-        border-radius: 0.5em;
         z-index: 2;
         overflow: hidden;
-        border-color: rgba(38, 166, 154, 1);
-        background-color: rgba(19, 24, 37, 0.9);
-        transition: border 0.2s ease-in-out;
-        flex: 5;
+        max-height: 100%;
 
-        @include notMobile {
-          @include landscape {
+        flex: none;
+        @include landscape {
+          max-height: 100%;
+          @include notMobile {
             border-color: rgba(38, 166, 154, 0.3);
             height: max-content;
             align-self: flex-end;
@@ -106,8 +169,41 @@ nav {
           border-color: rgba(38, 166, 154, 1);
         }
 
+        .date {
+          justify-content: center;
+          align-items: center;
+          flex: 1;
+
+          @include landscape {
+            @include notMobile {
+              display: flex;
+            }
+          }
+
+          h1 {
+            color: white;
+            font-size: calc(1em + 2vw);
+            margin-bottom: 0.2em;
+            font-weight: 400;
+          }
+        }
+
         .card {
           @include flexBetween(true);
+          border: 1px solid rgba(38, 166, 154, 0.3);
+          border-radius: 0.5em;
+          border-color: rgba(38, 166, 154, 1);
+          background-color: rgba(19, 24, 37, 0.9);
+          transition: border 0.2s ease-in-out;
+          overflow: hidden;
+          flex: 1;
+
+          @include notMobile {
+            @include landscape {
+              border-color: rgba(38, 166, 154, 0.3);
+            }
+          }
+
           .header {
             @include notSelectable;
             background-color: #1b1c35;
@@ -115,6 +211,17 @@ nav {
             color: white;
             text-align: center;
             width: 100%;
+            min-height: fit-content;
+          }
+
+          .scrollable {
+            @include display_flex(true);
+            flex: 1;
+            overflow: scroll;
+            max-height: 72vw;
+            @include notMobile {
+              max-height: initial;
+            }
           }
 
           p {
@@ -122,9 +229,12 @@ nav {
             color: white;
             padding: 1em;
             font-size: 1em;
-            text-align: center;
             font-family: "Source Code Pro", sans-serif;
             margin: 0;
+
+            @include landscape {
+              text-align: center;
+            }
           }
 
           .cta {
@@ -293,31 +403,47 @@ nav {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  padding: 1em;
+  h1 {
+    color: white;
+    margin: 0;
+    border-bottom: 1px solid white;
+    padding-bottom: 0.4em;
+  }
+  // align-items: center;
 }
 
 .links ul {
   display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
+  @include landscape {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .links ul li {
   display: flex;
-  text-align: center;
+  // text-align: center;
   list-style: none;
-  justify-content: center;
+  // justify-content: center;
   margin: 0;
   flex: 1;
 }
 .links ul li a {
   text-decoration: none;
   color: rgb(59, 59, 223);
-  padding: 1em;
+  padding: 1em 0;
+  @include landscape {
+    padding: 1em;
+    white-space: nowrap;
+  }
 }
 
-.links ul li a:hover{
+.links ul li a:hover {
   color: rgb(109, 109, 221);
 }

@@ -8,23 +8,40 @@
             src="assets/disco-ball/index.html"></iframe>
         <div class="absoluteWrapper">
             <div class="flashes" [class.active]="showFlashes">
-                <div class="flash" [style.backgroundColor]="flash.color" [class]="'flash' + (i + 1)"
-                    *ngFor="let flash of flashes; let i = index"></div>
+                <ng-container *ngFor="let flash of flashes; let i = index">
+                    <div class="flash" [style.backgroundColor]="flash.color" [class]="'flash' + (i + 1)"></div>
+                </ng-container>
             </div>
         </div>
         <div class="area logo" (dblclick)="restartMusic()" (click)="toggleMusic()">
-            <img src="assets/img/logo.svg">
+            <div class="image"><img src="assets/img/logo.svg"></div>
+            <div class="date mbl" aria-label="March 18-20, 2022">
+                <span class="month">MAR</span>
+                <div class="date-container">
+                    <span class="days">18 - 20</span>
+                    <span class="year">2022</span>
+                </div>
+            </div>
+
         </div>
         <div class="area details">
+            <div class="date dsktp">
+                <h1>MARCH 18 - 20, 2022</h1>
+            </div>
             <div class="card">
                 <div class="header">HACKGSU '22 Registration</div>
-                <p>HackGSU 2022 is a 100% remote event. Pre-register below to be notified when registration opens!</p>
-                <div class="links">
-                    <ul>
-                        <li><a href="https://mlh.io/community-values" class="link">MLH Community Values</a></li>
-                        <li><a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" class="link">MLH Code of
-                                Conduct</a></li>
-                    </ul>
+                <div class="scrollable">
+                    <p>HackGSUX-10th Anniversary Edition is coming up fast!! March 18-20,2022! 100% Online!
+                        3 days of nonstop fun, with $$prizes$$, challenges, workshops, and more! Register Now!</p>
+                    <div class="links">
+                        <h1>Quick Links</h1>
+                        <ul>
+                            <li><a href="assets/docs/hackGSU_Sponsorship_packet_2022.pdf">Sponsorship Packet</a></li>
+                            <li><a href="https://mlh.io/community-values" class="link">MLH Community Values</a></li>
+                            <li><a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" class="link">MLH Code of
+                                    Conduct</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="cta"><a href="https://tiny.cc/mlh_hackgsu2022" target="_blank"><span>Register
                             Now!</span></a></div>
